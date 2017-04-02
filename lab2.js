@@ -1,3 +1,7 @@
+const right_tr = 1;
+const acute_tr = 2;
+const obtuse_tr = 3;
+
 function Triangle(a, b, c) {
         this.a = a;
         this.b = b;
@@ -6,9 +10,30 @@ function Triangle(a, b, c) {
         document.write(this.a,this.b,this.c);
     }
     this.middlelane = function(){
-     return a/2;
+        document.write("Middlelane between a&b: " + c/2);
+        document.write("Middlelane between c&b: " + a/2);
+        document.write("Middlelane between a&c: " + b/2);
+
     }
+    this.type_of_triangle = function(){
+        var tr = [];
+        tr[0] = a;
+        tr[1] = b;
+        tr[2] = c;
+        tr.sort(sortNumber);
+        var max = tr[0];
+        var ave = tr[1];
+        var min = tr[2];
+        if(max*max > min*min+ ave*ave)
+        return acute_tr;
+    else if(max*max < min*min+ ave*ave)
+        return obtuse_tr;
+    else return right_tr;
+        }
     
+}
+function sortNumber(a,b) {
+    return b - a ;
 }
 
 function View(a,b,c){
@@ -36,7 +61,7 @@ function View(a,b,c){
         td.appendChild(document.createTextNode(this.b + " "));
         td.appendChild(document.createTextNode(this.c));
         tr.appendChild(td);
-        
+
         var td1 = document.createElement('td');
 //        td1.appendChild(document.createTextNode(this.middlelane()));
         tr.appendChild(td1);
@@ -66,7 +91,6 @@ var data = {
         addNew : function() {
             this.add(document.getElementById('side_a').value, document.getElementById('side_b').value, document.getElementById('side_c').value);
                         this.refreshTable();
-
         },
         deleteT : function(index) {
             this.triangles.splice(index,1);
