@@ -8,42 +8,38 @@
 </head>
 <body>
 <div id="wrap">
+    <button onclick="data.refreshTable()">Refresh</button>
+	<button onClick="getElementById('win').removeAttribute('style');" type="button">Add</button>
     <table class="table">
         <thead>
             <td>Треугольники</td>
-            <td>Действия</td>
-            <td>Результат</td>
+            <td>Функции</td>
+            <td>Изменение</td>
+
+            <td></td>
         </thead>
         <tbody>
-<tr class="success">
-    <td>
-    <div id="result"></div>
-    </td>
-    <td>Second</td>
-        <td>Third</td>
-        </tr>  
+        <tbody id = "triangles">
+        
         </tbody>
     </table>
-<!--
-    <p>Введите first сторонy треугльника: <input id='first'><br>
-    Введите second сторонy треугльника: <input id='second'><br>
-    Введите third сторонy треугльника: <input id='third'><br>
-       <button id='input' onclick="read_sides();">Input</button>
-    </p>
--->    
+    
     <div id="win" style="display:none">
    <div class="overlay"></div>
       <div class="visible">
-          <h4>Input data</h4>
+          <h3>Input triangle</h3>
           <div class="content">
-            <p>Введите количество треугольников: <input id='ntriangles'> <button id='input' onclick="t_work();">OK</button> </p> 
+            <p>Введите сторону а нового треугольника: <input id='side_a'></p> 
+            <p>Введите сторону b нового треугольника: <input id='side_b'></p> 
+            <p>Введите сторону c нового треугольника: <input id='side_c'></p> 
+            <button onclick="data.addNew();getElementById('win').style.display='none';">OK</button>
           </div>
-        <button type="button" onClick="getElementById('win').style.display='none';">закрыть</button>
     </div>
 </div>
-<button onClick="getElementById('win').removeAttribute('style');" type="button">Начать работу</button>
 
     
     </div>
+    	<script type="text/javascript">data.refreshTable()</script>	
+
 </body>
 </html>
