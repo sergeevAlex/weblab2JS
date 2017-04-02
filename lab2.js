@@ -10,10 +10,12 @@ function Triangle(a, b, c) {
         document.write(this.a,this.b,this.c);
     }
     this.middlelane = function(){
-        document.write("Middlelane between a&b: " + c/2);
-        document.write("Middlelane between c&b: " + a/2);
-        document.write("Middlelane between a&c: " + b/2);
-
+//        document.write("Middlelane between a&b: " + c/2);
+//        document.write("Middlelane between c&b: " + a/2);
+//        document.write("Middlelane between a&c: " + b/2);
+//    
+    md = document.getElementById('middleLane').setAttribute('dispay','block');
+        md.appendChild(document.createTextNode(c/2));
     }
     this.type_of_triangle = function(){
         var tr = [];
@@ -30,8 +32,8 @@ function Triangle(a, b, c) {
         return obtuse_tr;
     else return right_tr;
         }
-    
 }
+
 function sortNumber(a,b) {
     return b - a ;
 }
@@ -52,18 +54,27 @@ function View(a,b,c){
         return view;
     }
     
+    this.CreateFun = function(index) {
+        var f_view = document.createDocumentFragment();
+        var middle_button = document.createElement("img");
+        middle_button.width = "25";
+        middle_button.src = "img/ml.png";
+        middle_button.addEventListener("click", this.middlelane);
+        f_view.appendChild(middle_button);
+        return f_view;
+    }
     this.CreateRow = function(index){
         var tr = document.createElement('tr');
         tr.id = "row_" + index;
-        
         var td = document.createElement('td');
         td.appendChild(document.createTextNode(this.a + " "));
         td.appendChild(document.createTextNode(this.b + " "));
         td.appendChild(document.createTextNode(this.c));
         tr.appendChild(td);
-
+        
+        
         var td1 = document.createElement('td');
-//        td1.appendChild(document.createTextNode(this.middlelane()));
+        td1.appendChild(this.CreateFun(index));
         tr.appendChild(td1);
         
         var td2 = document.createElement('td');
@@ -74,8 +85,7 @@ function View(a,b,c){
 }
 var data = {
     
-    triangles : [
-    ],
+    triangles : [],
         
         refreshTable : function() {
             var tableBody = document.getElementById('triangles');
