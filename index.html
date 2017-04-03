@@ -9,24 +9,18 @@
 <body>
 <div id="wrap">
 	<button onClick="getElementById('win').removeAttribute('style');" type="button">Add</button>
-     <div id = "middleLane"> 
-        
-    </div>
-    
-    <table class="table">
+   <div id='posTable'><table class="table">
         <thead>
             <td>Треугольники</td>
             <td>Функции</td>
             <td>Изменение</td>
-
             <td></td>
         </thead>
         <tbody>
         <tbody id = "triangles">
         </tbody>
     </table>
-    
-   
+       </div> 
     <div id="win" style="display:none">
    <div class="overlay"></div>
       <div class="visible">
@@ -39,10 +33,22 @@
           </div>
     </div>
 </div>
-
     
+    <div id="edit" style="display:none">
+    <div class="overlay"></div>
+    <div class="visible">
+          <h3>Edit triangle</h3>
+          <div class="content">
+            <p>Изменение а: <input id='edit_a'></p> 
+            <p>Изменение b: <input id='edit_b'></p> 
+            <p>Изменение c: <input id='edit_c'></p> 
+            <button onclick="data.edit();getElementById('edit').style.display='none';">OK</button>
+          </div>
+    </div>
+</div>
+      <div id = "middleLane" style='display:none'> 
+    </div>
     </div>
     	<script type="text/javascript">data.refreshTable()</script>	
-
 </body>
 </html>

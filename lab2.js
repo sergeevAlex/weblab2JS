@@ -6,63 +6,128 @@ function Triangle(a, b, c) {
         this.a = a;
         this.b = b;
         this.c = c;
-    this.print = function(){
-        document.write(this.a,this.b,this.c);
+        this.middlelane = function(){
+        var md = document.getElementById('middleLane');
+        md.style.display = 'inline';
+        md.appendChild(document.createElement("p"));
+        md.appendChild(document.createTextNode("Middlelane between a&b: " + this.c/2));
+        md.appendChild(document.createElement("p"));
+        md.appendChild(document.createTextNode("Middlelane between b&c: " + this.a/2));
+        md.appendChild(document.createElement("p"));
+        md.appendChild(document.createTextNode("Middlelane between a&c: " + this.b/2));
     }
-    this.middlelane = function(){
-//        document.write("Middlelane between a&b: " + c/2);
-//        document.write("Middlelane between c&b: " + a/2);
-//        document.write("Middlelane between a&c: " + b/2);
-//    
-    md = document.getElementById('middleLane').setAttribute('dispay','block');
-        md.appendChild(document.createTextNode(c/2));
-    }
-    this.type_of_triangle = function(){
+    
+        
+    this.type_of_triangle = function() {
         var tr = [];
-        tr[0] = a;
-        tr[1] = b;
-        tr[2] = c;
+        tr[0] = this.a;
+        tr[1] = this.b;
+        tr[2] = this.c;
         tr.sort(sortNumber);
         var max = tr[0];
         var ave = tr[1];
         var min = tr[2];
+        var md1  = document.getElementById('middleLane');
+        md1.style.display = 'inline';
+        md1.appendChild(document.createElement("p"));
         if(max*max > min*min+ ave*ave)
-        return acute_tr;
+        md1.appendChild(document.createTextNode("Triangle is: acute" ));
     else if(max*max < min*min+ ave*ave)
-        return obtuse_tr;
-    else return right_tr;
-        }
+        md1.appendChild(document.createTextNode("Triangle is: obtuse" ));
+    else md1.appendChild(document.createTextNode("Triangle is: right_tr" ));
+}
+    
+    this.value_of_angles = function(){
+        var md1  = document.getElementById('middleLane');
+        md1.style.display = 'inline';
+        if(((this.b+this.c-this.a) > 0) && ((this.a+this.c-this.b) > 0) && ((this.a+this.b-this.c) > 0))
+        md1.appendChild(document.createElement("p"));
+
+        var Alpha = Math.acos((this.a*this.a + this.b*this.b - this.c*this.c)/(2*this.a*this.b))*180.0/Math.PI;
+        md1.appendChild(document.createTextNode("Alpha is: "  + Alpha ));
+        
+        var Betta = Math.acos((this.a*this.a + this.c*this.c - this.b*this.b)/(2*this.a*this.c))*180.0/Math.PI;
+        md1.appendChild(document.createElement("p"));
+
+        md1.appendChild(document.createTextNode("Betta is: "  + Betta ));
+        var Gamma = 180-(Alpha+Betta);
+                md1.appendChild(document.createElement("p"));
+
+        md1.appendChild(document.createTextNode("Gamma is: "  + Gamma ));
+
+    }
+  
 }
 
 function sortNumber(a,b) {
     return b - a ;
 }
+    var current;
 
 function View(a,b,c){
     Triangle.call(this,a,b,c);
     this.CreateView = function(index){
-        
         var view = document.createDocumentFragment();
         var b_delete = document.createElement("img");
         b_delete.src = "img/del.png";
         b_delete.width = "25";
-        
-        b_delete.addEventListener("click",function(){
-            data.deleteT(index);
+        b_delete.addEventListener("click", function(){
+        data.deleteT(index);
         });
         view.appendChild(b_delete);
         return view;
     }
     
+    
     this.CreateFun = function(index) {
         var f_view = document.createDocumentFragment();
+        var edit_button = document.createElement("img");
+        edit_button.width = "25";
+        edit_button.src = "img/edit.svg";
+        edit_button.addEventListener("click", function(){
+            md3 = document.getElementById('edit');
+            md3.removeAttribute('style');
+            current = index;
+        });
+                f_view.appendChild(edit_button);
+        
         var middle_button = document.createElement("img");
         middle_button.width = "25";
         middle_button.src = "img/ml.png";
-        middle_button.addEventListener("click", this.middlelane);
+        middle_button.addEventListener("mouseover", this.middlelane);
+        middle_button.addEventListener("mouseout", function() {
+            md = document.getElementById('middleLane');
+            md.style.display = 'none';
+            md.innerHTML = '';
+            });
         f_view.appendChild(middle_button);
+        
+        
+        var type_button = document.createElement("img");
+        type_button.width = "25";
+        type_button.src = "img/trtype.png";
+        type_button.addEventListener("mouseover", this.type_of_triangle);
+        type_button.addEventListener("mouseout", function() {
+            md = document.getElementById('middleLane');
+            md.style.display = 'none';
+            md.innerHTML = '';
+            });
+        f_view.appendChild(type_button);
+        
+        var angle_button = document.createElement("img");
+        angle_button.width = "25";
+        angle_button.src = "img/angle.png";
+        angle_button.addEventListener("mouseover",this.value_of_angles);
+        angle_button.addEventListener("mouseout", function(){
+        md2 = document.getElementById('middleLane');
+        md2.style.display = 'none';
+        md2.innerHTML = '';
+            
+        });
+        f_view.appendChild(angle_button);
         return f_view;
     }
+    
     this.CreateRow = function(index){
         var tr = document.createElement('tr');
         tr.id = "row_" + index;
@@ -71,8 +136,6 @@ function View(a,b,c){
         td.appendChild(document.createTextNode(this.b + " "));
         td.appendChild(document.createTextNode(this.c));
         tr.appendChild(td);
-        
-        
         var td1 = document.createElement('td');
         td1.appendChild(this.CreateFun(index));
         tr.appendChild(td1);
@@ -83,10 +146,12 @@ function View(a,b,c){
         return tr;
     }   
 }
+
 var data = {
-    
-    triangles : [],
-        
+    triangles : [
+        new View(3,4,5),
+        new View(18,18,22)
+    ],    
         refreshTable : function() {
             var tableBody = document.getElementById('triangles');
             tableBody.innerHTML= '';
@@ -94,14 +159,23 @@ var data = {
                 tableBody.appendChild(this.triangles[i].CreateRow(i))
             }
         },
+
         add : function(a,b,c) {
             this.triangles.push(new View(a,b,c));
             this.refreshTable();
         },
+    
         addNew : function() {
             this.add(document.getElementById('side_a').value, document.getElementById('side_b').value, document.getElementById('side_c').value);
-                        this.refreshTable();
+            this.refreshTable();
         },
+        edit : function() {
+            this.triangles[current].a = document.getElementById('edit_a').value;
+            this.triangles[current].b = document.getElementById('edit_b').value;
+            this.triangles[current].c = document.getElementById('edit_c').value;
+            this.refreshTable();
+        },
+    
         deleteT : function(index) {
             this.triangles.splice(index,1);
             this.refreshTable();

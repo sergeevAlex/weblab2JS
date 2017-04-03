@@ -30,6 +30,7 @@ body{
 	padding: 0px;
 	margin-left: -250px;
 }
+
 #win button {
 	float: right;
 	line-height: 20px;
@@ -38,25 +39,32 @@ body{
 	background: transparent;
 	color: blue;
 }
+
 #win button[type="button"]:hover {
 	cursor: pointer;
 	color: navy;
 	text-decoration: underline;
 }
+
 #win h3 {
 	text-align: center;
 	color: #555;
 }
+
 .content {
 	padding: 0 1em;
 	border-top: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
 	background: WhiteSmoke;
 }
-#md {
-    display: none;
-    background-color: chartreuse;
-    width: 150px;
+#middleLane {
+        border: 1px;
+
+    float: right;
+    background-color: azure;
+    width: 300px;
     height: 250px;
+    color: darkblue;
+    border-color: blue;
     border-radius: 20px;
 }
