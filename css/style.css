@@ -58,12 +58,11 @@ body{
 	background: WhiteSmoke;
 }
 #middleLane {
-    
+    border: solid 1px darkblue;
     float: right;
     background-color: azure;
     width: 300px;
     height: 250px;
     color: darkblue;
-    border-color: blue;
-    border-radius: 20px;
+    border-radius: 20px;*/
 }

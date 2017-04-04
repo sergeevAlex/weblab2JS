@@ -159,7 +159,9 @@ function View(a,b,c){
 var data = {
     triangles : [
         new View(3,4,5),
-        new View(18,18,22)
+        new View(18,18,22),
+        new View(30,40,50),
+        new View(11,22,33)
     ],    
         refreshTable : function() {
             var tableBody = document.getElementById('triangles');
